@@ -1,0 +1,80 @@
+nav {
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+}
+
+div.header-font {
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    padding: 2rem;
+}
+
+.font-sans {
+    font-family: "Open Sans", sans-serif;
+}
+
+body {
+    font-family: merriweather, serif !important;
+    min-height: 100vh;
+}
+
+.content {
+    font-family: merriweather, serif;
+}
+
+img.avatar-100 {
+    width: 100px;
+    height: 100px;
+    border: 5px solid #ffffff;
+}
+
+.valign-middle {
+    vertical-align: middle;
+}
+
+.width-120 {
+    width: 120px;
+}
+
+.container {
+    max-width: 50em;
+}
+
+.circle-line:after {
+    display: block;
+    content: "";
+    width: .5rem;
+    height: .5rem;
+    border: #e7eef2 .1rem solid;
+    position: relative;
+    top: 1.3rem;
+    left: 50%;
+    margin-left: -.25rem;
+    background: #fff;
+    border-radius: 100%;
+    box-shadow: #fff 0 0 0 5px;
+}
+
+.line-height {
+    line-height: 2.125rem !important;
+}
+
+.letter-spacing {
+    letter-spacing: .2rem;
+}
+
+.border-bottom-gray {
+    border-bottom-color: rgba(0, 0, 0, .125);
+}
+
+img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+figure.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
