@@ -4,7 +4,46 @@
 <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
 <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div></head><body><nav class="navbar navbar-expand-sm navbar-light font-weight-bold border-bottom"><div class=navbar-header><a class=navbar-brand href=http://www.karslian.com/en>Vanik Karslian</a></div><button class=navbar-toggler type=button data-toggle=collapse data-target=#collapsibleNavbar>
 <span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=collapsibleNavbar><ul class="navbar-nav ml-auto"><li class="nav-item active"><a class="nav-link navbar-dark" href=http://www.karslian.com/articles/>Articles</a></li><li class="nav-item active"><a class="nav-link navbar-dark" href=http://www.karslian.com/podcasts/>Podcasts</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id=dropdownMenuButton role=button data-toggle=dropdown aria-haspopup=true aria-expanded=false><i class="fas fa-globe"></i>EN</a><div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuButton><a class=dropdown-item><i class="fas fa-flag-en"></i><b>English</b></a></div></li></ul></div></nav><div class="jumbotron header-font border"><div class=text-center><a href=http://www.karslian.com/en><img class="lazyload rounded-circle rounded-50 border-white bg-white mx-auto avatar-100" data-src=http://www.karslian.com/self/img/avatar_.jpg></a>
-<a href=http://www.karslian.com/en><h1 class="text-dark font-weight-bold">Vanik Karslian</h1></a><h2>Seniour Data engineer, DevOps.<br>curious</h2></div></div>Data challenges in Amazon Vendor Central<h3 id=intro>Intro</h3><p>Hi everyone, in this article I am going to shed some light on the Amazon Vendor Central
+<a href=http://www.karslian.com/en><h1 class="text-dark font-weight-bold">Vanik Karslian</h1></a><h2>Seniour Data engineer, DevOps.<br>curious</h2></div></div>Travels in time with BigQuery<p>The travels in time are possible in BigQuery. Not many of the BigQuery users
+are aware of this feature, although it might be incredibly useful in a daily
+life of any data engineer.
+There are multiple occasions when you can leverage the benefits of using <code>time travel</code>.
+Imagine, you run a data pipeline that breaks the result table, or you
+did a mistake in your sql query that destroyed a table used by other team-mates.
+In all of these cases you can restore the table from the most recent state.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-.sql data-lang=.sql><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span>
+<span style=color:#66d9ef>FROM</span> <span style=color:#f92672>`</span>MY_DATASET.MY_TABLE<span style=color:#f92672>`</span>
+  <span style=color:#66d9ef>FOR</span> SYSTEM_TIME <span style=color:#66d9ef>AS</span> OF <span style=color:#a6e22e>TIMESTAMP_SUB</span>(<span style=color:#66d9ef>CURRENT_TIMESTAMP</span>(), <span style=color:#66d9ef>INTERVAL</span> <span style=color:#ae81ff>1</span> HOUR);
+</code></pre></div><p>here the <code>SYSTEM_TIME</code> defines the exact time stamp from which we would like
+to restore the state from, in this case it will be the point of time in 1
+hours from now, the format would be &ldquo;2022-11-07 10:44:28.409401 UTC&rdquo;.</p><p>Another case when you would use the <code>time travel</code> more often is the troubleshooting.
+If you are wondering when a specific part of the data was introduced to the
+table, or how a specific subset of rows was changing over the last 7 days, you can
+leverage the following query:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SELECT</span>
+<span style=color:#f92672>*</span> <span style=color:#66d9ef>except</span> (_CHANGE_TYPE,_CHANGE_TIMESTAMP),
+_CHANGE_TYPE <span style=color:#66d9ef>AS</span> change_type,
+_CHANGE_TIMESTAMP <span style=color:#66d9ef>AS</span> change_time
+<span style=color:#66d9ef>FROM</span>
+APPENDS(<span style=color:#66d9ef>TABLE</span> MY_DATASET.MY_TABLE, TIMESTAMP_SUB(<span style=color:#66d9ef>CURRENT_TIMESTAMP</span>(), INTERVAL <span style=color:#ae81ff>7</span> <span style=color:#66d9ef>DAY</span>), <span style=color:#66d9ef>NULL</span>);
+</code></pre></div><p>here <code>APPENDS</code> returns a table of all rows appended to a table for a given time range</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql>APPENDS(
+  <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>table</span>,
+  start_timestamp <span style=color:#66d9ef>DEFAULT</span> <span style=color:#66d9ef>NULL</span>,
+  end_timestamp <span style=color:#66d9ef>DEFAULT</span> <span style=color:#66d9ef>NULL</span>)
+</code></pre></div><p>where</p><ul><li><strong>start_timestamp</strong> - the earliest time at which a change is included in the output,
+the NULL would include all the changes since the table creation.</li><li><strong>end_timestamp</strong> is a TIMESTAMP indicating the latest time, exclusive,
+at which a change is included in the output. If it is NULL,
+all changes made until the start of the query are included.</li></ul><h2 id=the-limitations>The limitations</h2><h4 id=1-storage-time>1. Storage time</h4><p>BigQuery can be configured to store from 2 up to 7 days of history. The
+default configuration is 7 days.
+In case if the data is not available anymore, you will get the following error</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-.sql data-lang=.sql>Invalid snapshot <span style=color:#66d9ef>time</span> <span style=color:#ae81ff>1601168925462</span> <span style=color:#66d9ef>for</span> <span style=color:#66d9ef>table</span>
+MY_PROJECT:MY_DATASET.MY_TABLE<span style=color:#f92672>@</span><span style=color:#ae81ff>1601168925462</span>. Cannot <span style=color:#66d9ef>read</span> <span style=color:#66d9ef>before</span> <span style=color:#ae81ff>1601573410026</span>.
+</code></pre></div><p>There are several occasions when you would like to have a longer time window.
+In those cases the BigQuery <a href=https://cloud.google.com/bigquery/docs/table-snapshots-intro>snapshots</a>
+would be a better option.</p><h4 id=2-row-level-security>2. Row Level Security</h4><p>If you have tables with row level security configured, then you would need to have
+Admin priviliges to these tables to access the functionality of the <code>time travel</code>.
+Particularly, the roles:</p><ul><li><code>bigquery.rowAccessPolicies.overrideTimeTravelRestrictions</code></li><li><code>roles/bigquery.admin</code></li></ul><p>on the table level are required.</p><h2 id=summary>Summary</h2><p>The <code>time travel</code> is a powerful feature of the BigQuery, it might come in
+handy on emergency situations as well as in a daily Data Engineering routine.
+And as many other tools it requires some conciseness.
+It needs to be used wisely, since the
+storage and queries will affect the end cost of the usage.</p>Data challenges in Amazon Vendor Central<h3 id=intro>Intro</h3><p>Hi everyone, in this article I am going to shed some light on the Amazon Vendor Central
 and explain the challenges that every data engineer faces working with data from
 Amazon Marketplace.</p><p>But first things first. What is Vendor Central and who are the vendors?</p><p><strong>Vendors</strong> are big enterprises that produce and sell their products on Amazon on
 a large scale, they are key suppliers for Amazon.</p><p><a href=https://vendorcentral.amazon.com/><strong>Vendor Central</strong></a> is a platform where the vendors
@@ -116,43 +155,4 @@ Ideally, all of your decisions should be backed by data
 amazon lacks of data availability and integration. We in Factor-a try to solve many
 of the challenges on Amazon through our Business Intelligence solution equipping our
 customers with a powerful tool, that of course will not make their business successfull
-right away, but at will definitely help to set their path towards that direction.</p>Travels in time with BigQuery<p>The travels in time are possible in BigQuery. Not many of the BigQuery users
-are aware of this feature, although it might be incredibly useful in a daily
-life of any data engineer.
-There are multiple occasions when you can leverage the benefits of using <code>time travel</code>.
-Imagine, you run a data pipeline that breaks the result table, or you
-did a mistake in your sql query that destroyed a table used by other team-mates.
-In all of these cases you can restore the table from the most recent state.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-.sql data-lang=.sql><span style=color:#66d9ef>SELECT</span> <span style=color:#f92672>*</span>
-<span style=color:#66d9ef>FROM</span> <span style=color:#f92672>`</span>MY_DATASET.MY_TABLE<span style=color:#f92672>`</span>
-  <span style=color:#66d9ef>FOR</span> SYSTEM_TIME <span style=color:#66d9ef>AS</span> OF <span style=color:#a6e22e>TIMESTAMP_SUB</span>(<span style=color:#66d9ef>CURRENT_TIMESTAMP</span>(), <span style=color:#66d9ef>INTERVAL</span> <span style=color:#ae81ff>1</span> HOUR);
-</code></pre></div><p>here the <code>SYSTEM_TIME</code> defines the exact time stamp from which we would like
-to restore the state from, in this case it will be the point of time in 1
-hours from now, the format would be &ldquo;2022-11-07 10:44:28.409401 UTC&rdquo;.</p><p>Another case when you would use the <code>time travel</code> more often is the troubleshooting.
-If you are wondering when a specific part of the data was introduced to the
-table, or how a specific subset of rows was changing over the last 7 days, you can
-leverage the following query:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SELECT</span>
-<span style=color:#f92672>*</span> <span style=color:#66d9ef>except</span> (_CHANGE_TYPE,_CHANGE_TIMESTAMP),
-_CHANGE_TYPE <span style=color:#66d9ef>AS</span> change_type,
-_CHANGE_TIMESTAMP <span style=color:#66d9ef>AS</span> change_time
-<span style=color:#66d9ef>FROM</span>
-APPENDS(<span style=color:#66d9ef>TABLE</span> MY_DATASET.MY_TABLE, TIMESTAMP_SUB(<span style=color:#66d9ef>CURRENT_TIMESTAMP</span>(), INTERVAL <span style=color:#ae81ff>7</span> <span style=color:#66d9ef>DAY</span>), <span style=color:#66d9ef>NULL</span>);
-</code></pre></div><p>here <code>APPENDS</code> returns a table of all rows appended to a table for a given time range</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql>APPENDS(
-  <span style=color:#66d9ef>TABLE</span> <span style=color:#66d9ef>table</span>,
-  start_timestamp <span style=color:#66d9ef>DEFAULT</span> <span style=color:#66d9ef>NULL</span>,
-  end_timestamp <span style=color:#66d9ef>DEFAULT</span> <span style=color:#66d9ef>NULL</span>)
-</code></pre></div><p>where</p><ul><li><strong>start_timestamp</strong> - the earliest time at which a change is included in the output,
-the NULL would include all the changes since the table creation.</li><li><strong>end_timestamp</strong> is a TIMESTAMP indicating the latest time, exclusive,
-at which a change is included in the output. If it is NULL,
-all changes made until the start of the query are included.</li></ul><h2 id=the-limitations>The limitations</h2><h4 id=1-storage-time>1. Storage time</h4><p>BigQuery can be configured to store from 2 up to 7 days of history. The
-default configuration is 7 days.
-In case if the data is not available anymore, you will get the following error</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-.sql data-lang=.sql>Invalid snapshot <span style=color:#66d9ef>time</span> <span style=color:#ae81ff>1601168925462</span> <span style=color:#66d9ef>for</span> <span style=color:#66d9ef>table</span>
-MY_PROJECT:MY_DATASET.MY_TABLE<span style=color:#f92672>@</span><span style=color:#ae81ff>1601168925462</span>. Cannot <span style=color:#66d9ef>read</span> <span style=color:#66d9ef>before</span> <span style=color:#ae81ff>1601573410026</span>.
-</code></pre></div><p>There are several occasions when you would like to have a longer time window.
-In those cases the BigQuery <a href=https://cloud.google.com/bigquery/docs/table-snapshots-intro>snapshots</a>
-would be a better option.</p><h4 id=2-row-level-security>2. Row Level Security</h4><p>If you have tables with row level security configured, then you would need to have
-Admin priviliges to these tables to access the functionality of the <code>time travel</code>.
-Particularly, the roles:</p><ul><li><code>bigquery.rowAccessPolicies.overrideTimeTravelRestrictions</code></li><li><code>roles/bigquery.admin</code></li></ul><p>on the table level are required.</p><h2 id=summary>Summary</h2><p>The <code>time travel</code> is a powerful feature of the BigQuery, it might come in
-handy on emergency situations as well as in a daily Data Engineering routine.
-And as many other tools it requires some conciseness.
-It needs to be used wisely, since the
-storage and queries will affect the end cost of the usage.</p><footer class="footer card-footer text-secondary mt-auto"><div class=row><div class="col col-sm-9">&copy; 2022 Vanik Karslian</div><div class="col-12 col-sm-3 text-sm-right px-3"><a href=mailto:vanik.karslian@gmail.com class="text-nowrap text-secondary"><i class="fas fa-envelope fa-fw valign-middle" data-hint=Email></i></a><a href=https://www.linkedin.com/in/vanik-karslian/ class="text-nowrap text-secondary"><i class="fab fa-linkedin-in fa-fw valign-middle" data-hint=LinkedIn></i></a><a href=https://github.com/Vanik888 class="text-nowrap text-secondary"><i class="fab fa-github fa-fw valign-middle" data-hint=Github></i></a><a href=https://www.instagram.com/vanik_kars class="text-nowrap text-secondary"><i class="fab fa-instagram fa-fw valign-middle" data-hint=Instagram></i></a><a href=https://t.me/vanik_kars class="text-nowrap text-secondary"><i class="fab fa-telegram fa-fw valign-middle" data-hint=Telegram></i></a></div></div></footer></body></html>
+right away, but at will definitely help to set their path towards that direction.</p><footer class="footer card-footer text-secondary mt-auto"><div class=row><div class="col col-sm-9">&copy; 2022 Vanik Karslian</div><div class="col-12 col-sm-3 text-sm-right px-3"><a href=mailto:vanik.karslian@gmail.com class="text-nowrap text-secondary"><i class="fas fa-envelope fa-fw valign-middle" data-hint=Email></i></a><a href=https://www.linkedin.com/in/vanik-karslian/ class="text-nowrap text-secondary"><i class="fab fa-linkedin-in fa-fw valign-middle" data-hint=LinkedIn></i></a><a href=https://github.com/Vanik888 class="text-nowrap text-secondary"><i class="fab fa-github fa-fw valign-middle" data-hint=Github></i></a><a href=https://www.instagram.com/vanik_kars class="text-nowrap text-secondary"><i class="fab fa-instagram fa-fw valign-middle" data-hint=Instagram></i></a><a href=https://t.me/vanik_kars class="text-nowrap text-secondary"><i class="fab fa-telegram fa-fw valign-middle" data-hint=Telegram></i></a></div></div></footer></body></html>
