@@ -7,7 +7,8 @@
 <a href=http://www.karslian.com/en><h1 class="text-dark font-weight-bold">Vanik Karslian</h1></a><h2>Seniour Data engineer, DevOps.<br>curious</h2></div></div>Overview of the data architectures<p>The Data Еnignеering field is a relatively a new area of IT,
 which is actively developing within the last years.<br>The field is dynamically changing, and those changes also reflect in the emerging
 approaches in the architecture. In this article we will briefly cover some of
-the most popular DWH architectures.</p><h1 id=independent-data-mart-architecture>Independent Data Mart Architecture</h1><p>In this architecture, the data marts are highly adjusted to the needs of
+the most popular DWH architectures.</p><h1 id=independent-data-mart-architecture>Independent Data Mart Architecture</h1><p><img src=/self/img/articles/2022-10-07-data-architectures/independent-data-marts.png alt=independent-data-mart>
+In this architecture, the data marts are highly adjusted to the needs of
 the specific departments. Each data mart is significantly customised per
 department case. The situation when different departments repeat the work
 of other department in a slightly different way is quite typical for this
@@ -17,7 +18,8 @@ a slightly different way), which is a source of various
 conflicts and misunderstandings between the departments.
 The Independent Data Marts have one key benefit, the development of
 the Marts does not require time-consuming communication across departments.
-The latter is a big time-saver in many corporate environments.</p><h1 id=hub-and-spoke-corporate-information-factory>Hub-and-Spoke Corporate Information Factory</h1><p>The Hub-and-Spoke Corporate Information Factory (CIF) is an approach advocated by
+The latter is a big time-saver in many corporate environments.</p><h1 id=hub-and-spoke-corporate-information-factory>Hub-and-Spoke Corporate Information Factory</h1><p><img src=/self/img/articles/2022-10-07-data-architectures/hub-and-spoke.png alt=independent-data-mart>
+The Hub-and-Spoke Corporate Information Factory (CIF) is an approach advocated by
 Bill Inmon. In this architecture, the data from all of the operational sources
 first gets accumulated in a data layer which is called Enterprise Data Warehouse
 (EDW). The data in EDW is always kept in 3-d normal form (3NF). The normalisation in
@@ -28,14 +30,16 @@ in the Hub-and-Spoke architecture are Department-centric.
 Thus, the Hub-and-Spoke has cons similar to Independent Data Marts- repeated
 work in various departments, missmatching KPIs across departments, etc.
 Additionally, it has yet another data layer EDW, that adds more complexity
-on maintainance than solves the integrational issues.</p><h1 id=kimballs-dimensional-modeling>Kimballs Dimensional modeling</h1><p>In this architecture, proposed by Kimball the data processing is broken down
+on maintainance than solves the integrational issues.</p><h1 id=kimballs-dimensional-modeling>Kimballs Dimensional modeling</h1><p><img src=/self/img/articles/2022-10-07-data-architectures/kimball.png alt>
+In this architecture, proposed by Kimball the data processing is broken down
 into two major steps:</p><ol><li>the backroom extract, where the data is collected from
 the operations sources</li><li>the transformation and load environment</li><li>the front room with representation area.</li></ol><p>The key difference of the Kimballs approach is that the data models are build around
 the business processes. Unlike the Department-centric architectures, the focus on
 the business processes helps to avoid the code and data duplication. It also
 prevents the cases when the KPIs are not matching between departments.
 Additionally, the star-schemas in Kimballs architecture provide the
-required flexibility when it comes to the reporting, and advance analytix.</p><h1 id=the-labmda-architecture>The Labmda architecture</h1><p>The raise of the labmda architecture correlates with the growth of the Big Data.
+required flexibility when it comes to the reporting, and advance analytix.</p><h1 id=the-labmda-architecture>The Labmda architecture</h1><p><img src=/self/img/articles/2022-10-07-data-architectures/lambda.png alt>
+The raise of the labmda architecture correlates with the growth of the Big Data.
 Particularly, with the emerge of the MapReduce solutions.
 The Lambda architecture was significantly dictated by the business
 willing to having access to the most latest data possible as well as having
@@ -53,7 +57,8 @@ places.
 In the mordern tools like Spark and DataFlow (apache beam) the boundaries between
 the streaming and batch processing are vanishing. The recent versions of Sparks
 allow to write stream processing, while DataFlow makes it possible to port the
-streaming processing to the batch processing with minimal changes.</p><h1 id=kappa-architecture>Kappa architecture</h1><p>Kappa architecture emerged after when the industry realised the main cons of the
+streaming processing to the batch processing with minimal changes.</p><h1 id=kappa-architecture>Kappa architecture</h1><p><img src=/self/img/articles/2022-10-07-data-architectures/kappa.png alt>
+Kappa architecture emerged after when the industry realised the main cons of the
 lambda architecture. Namely, the need to maintain two separate code bases with
 separate stack of technologies. Since this setup makes the maintainance
 highly complicated, time-consuming and error-prone.
@@ -69,11 +74,13 @@ re-run the pipelines on the already processed data, by moving the pointer back i
 time, thanks to the Kafka peristent queues. This comes in handy when a bug in
 code might break the output results and reverted or fixed code can be
 simply rescheduled.
-The main downside of this architecture is it&rsquo;s complexity and the costs.</p><h1 id=data-pipelines-in-a-modern-world>Data pipelines in a modern world</h1><h1 id=data-mesh>Data mesh</h1><p>The data mesh architecture came out as a response to the classical centralised
+The main downside of this architecture is it&rsquo;s complexity and the costs.</p><h1 id=data-mesh>Data mesh</h1><p><img src=/self/img/articles/2022-10-07-data-architectures/data-mesh.png alt=independent-data-mart>
+The data mesh architecture came out as a response to the classical centralised
 data lakes and data warehouses. Data mesh instead is focused on decentralised data warehouses built around
 the business-domains. The domain driven design is commonly used in software
 architecture, data mesh is applying it to the data engineering space.
-Here are some main points about the main conepts of the Data mesh:</p><ul><li>Domain-oriented decentralised data ownership and architecture</li><li>Data as a product</li><li>Self-serve data infrastructure as a platform</li><li>Federated computational governance</li></ul><h1 id=lakehouse>Lakehouse</h1><p>One of the architectures that got a lot of attention in the recent years.
+Here are some main points about the main conepts of the Data mesh:</p><ul><li>Domain-oriented decentralised data ownership and architecture</li><li>Data as a product</li><li>Self-serve data infrastructure as a platform</li><li>Federated computational governance</li></ul><h1 id=lakehouse>Lakehouse</h1><p><img src=/self/img/articles/2022-10-07-data-architectures/lakehouse.png alt>
+One of the architectures that got a lot of attention in the recent years.
 The lakehouse provides layers of data arrangements that creates a similar to data warhouse
 experience, while keeping the data in object storage.
 It combines the approaches used in the classic data warehouse, like
@@ -89,7 +96,7 @@ only in the cases where it is required, the rest will be stored in a raw format,
 both the storage and the cots.
 In fact, many data warehouse solutions like BigQuery or Snowflake, do store the data in
 a similar manner, but hide the comlexity of the files and metadata storage
-management from the end user.</p><h1 id=summary>Summary</h1><p>Although, a good architecture is vital for any data warhouse solution,
+management from the end user.</p><h1 id=summary>Summary</h1><p>Although, a good architecture is vital for any data warehouse solution,
 it is really hard not only to engineer a good architecture, but even to define, what a good
 architecture looks like. We can dive deep into details of how to define a
 good architecture, but I prefer a much simple approach- typically u can simply see it
@@ -99,23 +106,4 @@ we just briefly touched a surface of several architectural designs. In practice,
 you would need find an architecture that feet the best for your particular case, mb
 a combination of multiple approaches would be required. Again, it significantly
 depends on a case. Thus, take your time, start with building high level view of
-the all the components, and try to find the best techinques that fit your case.</p><p>a lot THefaster,
-the data landed in the object storage becomes available for the analytical tools in
-a near realtime.</p><p>delay.
-The lakehouse makes it easier the cross-tool interchanges, since the data is not
-a prorprietary format</p><p>Although, the modern tools try to resolve this issue by vanishing the boundaries
-between the streaming and batch processing, the Lambda architecture forces the
-engineers to duplicate the steps and</p><p>Nowedays
-When the data volumes The lambda architecture
-tryes to resolve the issues related</p><p>separates the data and processes comprising the DW/BI system into
-the backroom extract,
-transformation and load (ETL) environment and the front
-room presentation area,
-as illustrated in the following diagram.</p><p>is isolated according to the needs of a particular
-departments.
-The requirements as well are fully based on the department needs, each data
-data mart is highly adjusted to the business rules of<br>Is isolated according to the needs of a particular deparments
-The requirements as well are fully based on the department needs, each data
-mart is highly adjusted to the business rules of seaprates the datra and
-processes compromising the DW/BI system into the backroom extract
-transformation areaa as illustrated in the folliwng diagram</p><footer class="footer card-footer text-secondary mt-auto"><div class=row><div class="col col-sm-9">&copy; 2022 Vanik Karslian</div><div class="col-12 col-sm-3 text-sm-right px-3"><a href=mailto:vanik.karslian@gmail.com class="text-nowrap text-secondary"><i class="fas fa-envelope fa-fw valign-middle" data-hint=Email></i></a><a href=https://www.linkedin.com/in/vanik-karslian/ class="text-nowrap text-secondary"><i class="fab fa-linkedin-in fa-fw valign-middle" data-hint=LinkedIn></i></a><a href=https://github.com/Vanik888 class="text-nowrap text-secondary"><i class="fab fa-github fa-fw valign-middle" data-hint=Github></i></a><a href=https://www.instagram.com/vanik_kars class="text-nowrap text-secondary"><i class="fab fa-instagram fa-fw valign-middle" data-hint=Instagram></i></a><a href=https://t.me/vanik_kars class="text-nowrap text-secondary"><i class="fab fa-telegram fa-fw valign-middle" data-hint=Telegram></i></a></div></div></footer></body></html>
+the all the components, and try to find the best techinques that fit your case.</p><footer class="footer card-footer text-secondary mt-auto"><div class=row><div class="col col-sm-9">&copy; 2022 Vanik Karslian</div><div class="col-12 col-sm-3 text-sm-right px-3"><a href=mailto:vanik.karslian@gmail.com class="text-nowrap text-secondary"><i class="fas fa-envelope fa-fw valign-middle" data-hint=Email></i></a><a href=https://www.linkedin.com/in/vanik-karslian/ class="text-nowrap text-secondary"><i class="fab fa-linkedin-in fa-fw valign-middle" data-hint=LinkedIn></i></a><a href=https://github.com/Vanik888 class="text-nowrap text-secondary"><i class="fab fa-github fa-fw valign-middle" data-hint=Github></i></a><a href=https://www.instagram.com/vanik_kars class="text-nowrap text-secondary"><i class="fab fa-instagram fa-fw valign-middle" data-hint=Instagram></i></a><a href=https://t.me/vanik_kars class="text-nowrap text-secondary"><i class="fab fa-telegram fa-fw valign-middle" data-hint=Telegram></i></a></div></div></footer></body></html>
