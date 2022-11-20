@@ -1,0 +1,13 @@
+<html>
+{{ partial "head" .}}
+<body class="d-flex flex-column flex-grow-1">
+{{ partial "nav" .}}
+{{ if .Params.UseHeader }}
+    {{ partial (printf "header/%s" .Params.UseHeader) .}}
+{{ end }}
+<main role="main" class="container p-3">
+    {{ block "main" . }}{{ end }}
+</main>
+{{ partial "footer" . }}
+</body>
+</html>

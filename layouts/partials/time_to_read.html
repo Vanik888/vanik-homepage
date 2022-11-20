@@ -1,0 +1,7 @@
+<span class="mr-1 text-nowrap"><i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+    {{ $minutes := math.Round (div (countwords .Content) 220.0) }}
+    {{ if lt $minutes 1 }}
+        {{ $minutes = 1 }}
+    {{ end }}
+    {{ $minutes }} min read
+</span>

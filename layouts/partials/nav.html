@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-sm navbar-light font-weight-bold border-bottom">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="{{ .Site.BaseURL }}/{{ .Site.Language.Lang }}">{{ .Site.Title }}</a>
+    </div>
+    {{ if .Site.Menus.main }}
+        <!-- Toggler/collapsible Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto">
+                {{ range sort .Site.Menus.main }}
+                    <li class="nav-item active">
+                        <a class="nav-link navbar-dark" href="{{ .URL | absLangURL }}">{{ .Name }}</a>
+                    </li>
+                {{ end }}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="dropdownMenuButton" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-globe"></i> {{ $.Site.LanguageCode }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        {{ range .Site.Languages }}
+                        {{ if eq . $.Site.Language }}
+                        <a class="dropdown-item"><i class="fas fa-flag-{{ .Lang }}"></i><b>{{ .LanguageName }}</b></a>
+                        {{ end }}
+                        {{ end }}
+                        {{ range $.Translations }}
+                        <a class="dropdown-item" href="{{ .Permalink }}"><i class="fas fa-flag-{{ .Lang }}"></i>{{ .Language.LanguageName }}</a>
+                        {{ end}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    {{ end }}
+</nav>

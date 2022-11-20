@@ -1,0 +1,9 @@
+{{ define "main" }}
+    {{ partial "quick_nav" .}}
+    {{ range .Paginator.Pages.ByDate.Reverse }}
+    <div class="mt-4 mb-2 pb-3 pt-1 mx-2 border-bottom border-bottom-gray circle-line">
+        {{ partial "photos_item" .}}
+    </div>
+    {{ end }}
+    {{ partial "paginator" . }}
+{{ end }}

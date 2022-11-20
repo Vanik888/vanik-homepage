@@ -1,0 +1,10 @@
+<div class="col px-2">
+    <a href="{{ .Permalink }}" class="text-dark">
+        <h3 class="mt-0">{{ .Title }}</h3>
+    </a>
+    <div class="text-muted h6 small">
+        {{ partial "date" . }}
+        {{ partial "tags" . }}
+    </div>
+    {{ .Content }}
+</div>

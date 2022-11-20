@@ -1,0 +1,9 @@
+{{ define "main" }}
+    {{ partial "quick_nav" . }}
+    {{ range .Paginator.Pages }}
+        <article class="row mt-4 mb-2 pb-3 pt-1 mx-2 border-bottom border-bottom-gray circle-line clearfix">
+            {{ partial "post_content_preview" .}}
+        </article>
+    {{ end }}
+    {{ partial "paginator" . }}
+{{ end }}

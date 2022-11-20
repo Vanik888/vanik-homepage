@@ -1,0 +1,15 @@
+<section role="pagination" class=" text-center h5 small text-muted mt-4 mb-3 mx-2">
+    {{ if .Paginator.HasPrev }}
+    <a href="{{ .Paginator.Prev.URL }}" title="Previous Page"
+       class="float-left btn btn-outline-secondary btn-sm text-secondary">« {{ i18n "prev" }}</a>
+    {{ else }}
+    <span class="float-left px-4">&nbsp;</span>
+    {{ end }}
+    <span class="line-height">{{ i18n "pages" . }}</span>
+    {{ if .Paginator.HasNext }}
+    <a href="{{ .Paginator.Next.URL }}" title="Next Page"
+       class="float-right btn btn-outline-secondary btn-sm text-secondary">{{ i18n "next" }} »</a>
+    {{ else }}
+    <span class="float-right px-4">&nbsp;</span>
+    {{ end }}
+</section>

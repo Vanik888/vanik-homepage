@@ -1,0 +1,14 @@
+[continue_reading]
+other = "Continue reading"
+
+[prev]
+other = "Prev"
+
+[next]
+other = "Next"
+
+[pages]
+other = "Page {{ .Paginator.PageNumber}} of {{ .Paginator.TotalPages}}"
+
+[share_it]
+other = "Share this post"

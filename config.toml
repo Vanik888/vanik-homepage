@@ -1,0 +1,119 @@
+baseURL = "https://www.karslian.com"
+title = "Vanik Karslian"
+paginate = 10
+DefaultContentLanguage = "en"
+googleAnalytics = "UA-73265627-3"
+
+[params]
+    author = "Vanik Karslian"
+    description = "Personal homepage"
+    thumbnailPath = "/self/img/avatar_.jpg"
+
+
+[taxonomies]
+tag = "tags"
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    languageCode = "EN"
+    weight = 1
+  [languages.ru]
+    languageName = "Русский"
+    languageCode = "RU"
+    weight = 2
+    [languages.ru.params]
+      description = "Персональная страница"
+
+
+[[languages.en.menu.main]]
+    identifier = "articles"
+    name = "Articles"
+    url = "/articles/"
+    weight = 1
+
+[[languages.ru.menu.main]]
+    identifier = "articles"
+    name = "Блог"
+    url = "/articles/"
+    weight = 1
+
+
+[[languages.en.menu.main]]
+    identifier = "podcasts"
+    name = "Podcasts"
+    url = "/podcasts/"
+    weight = 3
+
+[[languages.ru.menu.main]]
+    identifier = "podcasts"
+    name = "Подкасты"
+    url = "/podcasts/"
+    weight = 3
+
+[[languages.en.menu.icon]]
+    url = "mailto:vanik.karslian@gmail.com"
+    name = "Email"
+    identifier  = "fas fa-envelope"
+    weight = 1
+
+[[languages.en.menu.icon]]
+    url = "https://www.linkedin.com/in/vanik-karslian/"
+    name = "LinkedIn"
+    identifier  = "fab fa-linkedin-in"
+    weight = 2
+
+[[languages.en.menu.icon]]
+    url = "https://github.com/Vanik888"
+    name = "Github"
+    identifier  = "fab fa-github"
+    weight = 3
+
+[[languages.en.menu.icon]]
+    url = "https://www.instagram.com/vanik_kars"
+    name = "Instagram"
+    identifier  = "fab fa-instagram"
+    weight = 4
+
+[[languages.en.menu.icon]]
+    url = "https://t.me/vanik_kars"
+    name = "Telegram"
+    identifier  = "fab fa-telegram"
+    weight = 5
+
+[[languages.ru.menu.icon]]
+    url = "mailto:vanik.karslian@gmail.com"
+    name = "Email"
+    identifier  = "fas fa-envelope"
+    weight = 1
+
+[[languages.ru.menu.icon]]
+    url = "https://www.linkedin.com/in/vanik-karslian/"
+    name = "LinkedIn"
+    identifier  = "fab fa-linkedin-in"
+    weight = 2
+
+[[languages.ru.menu.icon]]
+    url = "https://github.com/vanik888"
+    name = "Github"
+    identifier  = "fab fa-github"
+    weight = 3
+
+[[languages.ru.menu.icon]]
+    url = "https://www.instagram.com/vanik_kars"
+    name = "Instagram"
+    identifier  = "fab fa-instagram"
+    weight = 4
+
+[[languages.ru.menu.icon]]
+    url = "https://t.me/vanik_kars"
+    name = "Telegram"
+    identifier  = "fab fa-telegram"
+    weight = 5
+
+[outputs]
+    page = ["HTML"]
+    home = ["HTML"]
+    section = ["HTML","RSS"]
+    taxonomyTerm = ["HTML"]
+    taxonomy = ["HTML"]

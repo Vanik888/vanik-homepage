@@ -1,0 +1,27 @@
+<div class="mt2 pr2 text-right">
+    {{ with .Site.GetPage "articles" }}
+    <a href="{{ .Permalink }}" class="text-nowrap text-secondary">{{ .Title }}</a>
+    {{ end }}
+    {{ with .Site.GetPage "photos" }}
+    <span class="px-1 text-secondary">|</span>
+    <a href="{{ .Permalink }}" class="text-nowrap text-secondary">{{ .Title }}</a>
+    {{ end }}
+    {{ with .Site.GetPage "tags" }}
+    <span class="px-1 text-secondary">|</span>
+    <a href="{{ .Permalink }}" class="text-nowrap text-secondary">{{ .Title }}</a>
+    {{ end }}
+    {{ with .Site.GetPage "articles" }}
+    {{ with .OutputFormats.Get "rss" -}}
+    <span class="px-1 text-secondary">|</span>
+    <a type="application/rss+xml" rel="alternate" target="_blank" href="{{ .Permalink }}"
+       class="text-nowrap text-secondary">
+        {{ end}} {{ .Title }} RSS</a>
+    {{ end }}
+    {{ with .Site.GetPage "photos" }}
+    {{ with .OutputFormats.Get "rss" -}}
+    <span class="px-1 text-secondary">|</span>
+    <a type="application/rss+xml" rel="alternate" target="_blank" href="{{ .Permalink }}"
+       class="text-nowrap text-secondary">
+        {{ end }}{{ .Title }} RSS</a>
+    {{ end }}
+</div>

@@ -1,0 +1,42 @@
+<!--This is a template for <website>/tags-->
+<html>
+{{ partial "head" . }}
+
+<body class="d-flex flex-column">
+{{ partial "nav" . }}
+
+{{ partial "header/tags_header" . }}
+
+<main class="container block">
+        {{ partial "quick_nav" .}}
+    <div class="row clearfix mt-3 mx-2">
+        {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
+        {{ range $key, $value := $taxonomy }}
+        <div class="col col-sm-auto px-1 mb-1">
+            <a href="#{{ humanize $key }}" class="btn btn-outline-dark text-secondary">{{ humanize $key }} ({{ .Count }})</a>
+        </div>
+        {{ end }}
+        {{ end }}
+    </div>
+
+    {{ range $taxonomy_term, $taxonomy := .Site.Taxonomies }}
+    {{ range $key, $value := $taxonomy }}
+    <section class="mb-4 mt-4">
+        <h3 class="border-bottom border-bottom-gray mb-3 pb-1" id="{{ humanize $key }}">{{ humanize $key }} <span class="text-muted">({{ .Count }}{{ if eq .Count 1 }} post{{ else }} posts{{ end }})</span></h3>
+        {{ $len_pages := (len $value.Pages) }}
+        {{ range $index, $page := $value.Pages }}
+        {{ if eq (add $index 1) $len_pages }}
+        <article class="row mt-4 mb-2 pb-3 pt-1 mx-2 clearfix">
+        {{ else }}
+        <article class="row mt-4 mb-2 pb-3 pt-1 mx-2 border-bottom border-bottom-gray circle-line clearfix">
+        {{ end }}
+        {{ partial "post_content_preview" . }}
+        </article>
+        {{ end }}
+        {{ end }}
+        {{ end }}
+    </section>
+</main>
+{{ partial "footer" . }}
+</body>
+</html>

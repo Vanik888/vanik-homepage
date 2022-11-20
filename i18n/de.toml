@@ -1,0 +1,14 @@
+[continue_reading]
+other = "Weiterlesen"
+
+[prev]
+other = "Vorher"
+
+[next]
+other = "Nachher"
+
+[pages]
+other = "Seite {{ .Paginator.PageNumber}} aus {{ .Paginator.TotalPages}}"
+
+[share_it]
+other = "Teilen"

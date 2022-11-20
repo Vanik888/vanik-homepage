@@ -1,0 +1,38 @@
+<div class="d-flex p-2 content">
+    <div class="row">
+        <div class="col col-sm-9">
+            <h3>About me</h3>
+            <p>
+                I'm a data engineer and developer based in Cologne, Germany.
+                <br /> I have more than 8 years experience in IT including QA,
+                DevOps and Data Engineering.
+                <br /> The last 5 years I was focused on the Data projects,
+                building ML and Business Intelligence solutions for Amazon Vendors.
+                <br /> I enjoy learning new technologies and
+                providing simple solutions to complex problems.
+                <br /> In my free time I play traditional armenian instruments like
+                bagpipe and pontian lyra and host a podcast about startups and IT in Armenia.
+                For more info, check out:
+                {{ $len_pages := (len .Site.Menus.main ) }}
+                {{ range $index, $menu := .Site.Menus.main }}
+                {{ if ne (add $index 1) $len_pages }}
+                    <a href="{{ .URL | absLangURL }}">{{ .Name | lower }}</a>,
+                {{ else }}
+                    <a href="{{ .URL | absLangURL }}">{{ .Name | lower }}</a>.
+                {{ end }}
+                {{ end }}
+            </p>
+        </div>
+        <div class="col-12 col-sm-3">
+            <h3>Contact</h3>
+            {{ if .Site.Menus.icon }}
+                {{ range sort .Site.Menus.icon }}
+                    <a href="{{ .URL }}" class="text-nowrap text-dark" target="_blank">
+                        <i class="{{ .Identifier }} fa-fw fa-2x valign-middle" data-hint="{{ .Name }}"></i><span
+                                class="h6 font-sans" style="font-size: 0.9rem">{{ .Name }}</span>
+                    </a>
+                {{ end }}
+            {{ end }}
+        </div>
+    </div>
+</div>

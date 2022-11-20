@@ -1,0 +1,12 @@
+<div class="jumbotron header-font border">
+    <div class="container text-left">
+        <h1 class="text-dark font-weight-bold">
+            {{ .Title }}
+        </h1>
+        <div class="text-muted h6 small">
+            {{ partial "date" . }}
+            {{ partial "tags" . }}
+            {{ partial "time_to_read" .}}
+        </div>
+    </div>
+</div>

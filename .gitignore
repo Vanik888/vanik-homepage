@@ -1,0 +1,8 @@
+.idea
+.idea/*
+blog/public/*
+input_folder/*
+.env
+.DS_Store
+*.lock
+schemas

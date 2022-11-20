@@ -1,0 +1,33 @@
+<div class="col-sm-4 px-2 mb-2">
+    {{ if .Params.CaptionUrl }}
+    <a href="{{ .Params.CaptionUrl }}" class="header-font text-secondary text-decoration-none">
+    {{ else }}
+    {{ end }}
+        {{ if .Params.ThumbnailPath }}
+        <img class="lazyload img-fluid" data-src="{{ .Page.Site.BaseURL}}{{ .Params.ThumbnailPath }}"
+             alt="{{ .Title }}"/>
+        {{ else }}
+        <div class="border border-light text-center h1 pt-4 pb-4">Aa</div>
+        {{ end }}
+    {{ if .Params.CaptionUrl }}
+    </a>
+    {{ else }}
+    {{ end }}
+</div>
+<div class="col col-sm-8 px-2">
+    {{ if .Params.CaptionUrl }}
+    <a href="{{ .Params.CaptionUrl }}" class="text-dark" target="_blank">
+    {{ else }}
+    {{ end }}
+        <h3 class="mt-0">{{ .Title }}</h3>
+    {{ if .Params.CaptionUrl }}
+    </a>
+    {{ else }}
+    {{ end }}
+    <div class="small mb-2">
+        <a href="{{ .Params.CaptionUrl }}">
+            {{ .Params.CaptionUrl }}
+        </a>
+    </div>
+    {{ .Content | replaceRE "<p>" "<p class=\"mb-0 text-left\">" | safeHTML }}
+</div>

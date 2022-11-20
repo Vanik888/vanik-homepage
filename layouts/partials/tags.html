@@ -1,0 +1,4 @@
+<span class="mr-1 text-nowrap"><i class="fas fa-tags fa-fw" aria-hidden="true">
+                        </i>{{ range $i, $e := .Params.tags }}{{ if $i }},{{ end }}
+                        <a class="text-info" href="/tags/#{{ humanize $e }}">{{ humanize $e }}</a>{{ end }}
+                    </span>

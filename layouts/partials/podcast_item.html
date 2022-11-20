@@ -1,0 +1,46 @@
+<div class="col-sm-4 px-2 mb-2">
+    {{ if .Params.applePodcastUrl }}
+        <a href="{{ .Params.applePodcastUrl }}" class="header-font text-secondary text-decoration-none">
+    {{ else }}
+    {{ end }}
+        {{ if .Params.ThumbnailPath }}
+          <img class="lazyload img-fluid" data-src="{{ .Page.Site.BaseURL}}{{ .Params.ThumbnailPath }}"
+             alt="{{ .Title }}"/>
+        {{ else }}
+          <div class="border border-light text-center h1 pt-4 pb-4">Content was not created yet</div>
+        {{ end }}
+    {{ if .Params.applePodcastUrl }}
+        </a>
+    {{ else }}
+    {{ end }}
+</div>
+<div class="col col-sm-8 px-2">
+    {{ if .Params.applePodcastUrl }}
+        <a href="{{ .Params.applePodcastUrl }}" class="text-dark" target="_blank">
+    {{ else }}
+    {{ end }}
+        <h3 class="mt-0">{{ .Title }}</h3>
+    {{ if .Params.applePodcastUrl }}
+        </a>
+    {{ else }}
+    {{ end }}
+    {{ if or (.Params.applePodcastUrl) (.Params.soundCloudPodcastUrl) }}
+    <span>Links to episode: </span>
+        {{ if .Params.applePodcastUrl }}
+            <a href="{{ .Params.applePodcastUrl }}" class="text-nowrap text-dark" target="_blank">
+                <i class="fab fa-apple fa-fw fa-2x valign-middle" data-hint=" apple podcast"></i><span
+                    class="h6 font-sans" style="font-size: 0.9rem"> Apple podcasts</span>
+            </a>
+        {{ end }}
+        <span> |  </span>
+        {{ if .Params.soundCloudPodcastUrl }}
+            <a href="{{ .Params.soundCloudPodcastUrl }}" class="text-nowrap text-dark" target="_blank">
+                <i class="fab fa-soundcloud fa-fw fa-2x valign-middle" data-hint=" apple podcast"></i><span
+                    class="h6 font-sans" style="font-size: 0.9rem"> SoundCloud</span>
+            </a>
+        {{ end }}
+    {{ end }}
+
+    {{ .Content | replaceRE "<p>" "<p class=\"mb-0 text-left\">" | safeHTML }}
+
+</div>

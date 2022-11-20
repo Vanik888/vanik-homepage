@@ -1,0 +1,14 @@
+[continue_reading]
+other = "Читать дальше"
+
+[prev]
+other = "Назад"
+
+[next]
+other = "Вперёд"
+
+[pages]
+other = "Страница {{ .Paginator.PageNumber}} из {{ .Paginator.TotalPages}}"
+
+[share_it]
+other = "Поделиться"
