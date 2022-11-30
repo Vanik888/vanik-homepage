@@ -2,39 +2,84 @@
 <button class="pswp__button pswp__button--share" title=Share></button>
 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
 <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div></head><body><nav class="navbar navbar-expand-sm navbar-light font-weight-bold border-bottom"><div class=navbar-header><a class=navbar-brand href=https://www.karslian.com/en>Vanik Karslian</a></div><button class=navbar-toggler type=button data-toggle=collapse data-target=#collapsibleNavbar>
-<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=collapsibleNavbar><ul class="navbar-nav ml-auto"><li class="nav-item active"><a class="nav-link navbar-dark" href=https://www.karslian.com/articles/>Articles</a></li><li class="nav-item active"><a class="nav-link navbar-dark" href=https://www.karslian.com/podcasts/>Podcasts</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id=dropdownMenuButton role=button data-toggle=dropdown aria-haspopup=true aria-expanded=false><i class="fas fa-globe"></i>EN</a><div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuButton><a class=dropdown-item><i class="fas fa-flag-en"></i><b>English</b></a></div></li></ul></div></nav><div class="jumbotron header-font border"><div class=text-center><a href=https://www.karslian.com/en><img class="lazyload rounded-circle rounded-50 border-white bg-white mx-auto avatar-100" data-src=https://www.karslian.com/self/img/avatar_.jpg></a>
-<a href=https://www.karslian.com/en><h1 class="text-dark font-weight-bold">Vanik Karslian</h1></a><h2>Seniour Data engineer, DevOps.<br>curious</h2></div></div>Manage your python-dependancies with Poetry<p>Another daily routine every python developer has is the packages management and control.
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div></head><body><nav class="navbar navbar-expand-sm navbar-light font-weight-bold border-bottom"><div class=navbar-header><a class=navbar-brand href=www.karslian.com/en>Vanik Karslian</a></div><button class=navbar-toggler type=button data-toggle=collapse data-target=#collapsibleNavbar>
+<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=collapsibleNavbar><ul class="navbar-nav ml-auto"><li class="nav-item active"><a class="nav-link navbar-dark" href=www.karslian.com/www.karslian.com/articles/>Articles</a></li><li class="nav-item active"><a class="nav-link navbar-dark" href=www.karslian.com/www.karslian.com/podcasts/>Podcasts</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id=dropdownMenuButton role=button data-toggle=dropdown aria-haspopup=true aria-expanded=false><i class="fas fa-globe"></i>EN</a><div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuButton><a class=dropdown-item><i class="fas fa-flag-en"></i><b>English</b></a></div></li></ul></div></nav><div class="jumbotron header-font border"><div class=text-center><a href=www.karslian.com/en><img class="lazyload rounded-circle rounded-50 border-white bg-white mx-auto avatar-100" data-src=www.karslian.com/self/img/avatar_.jpg></a>
+<a href=www.karslian.com/en><h1 class="text-dark font-weight-bold">Vanik Karslian</h1></a><h2>Seniour Data engineer, DevOps.<br>curious</h2></div></div>Manage your python-dependancies with Poetry<p>Another daily hassel for python developers is to have their packages under control.
 Python, unlike other programming languages lacks of solid package management tool.
 pip provides some basic functionality, but still does not have necessary version and
-dependency management capabilities, required for mission critical python projects.</p><h3 id=version-divergence>Version divergence</h3><p>Particularly, when developer adds/updates some packages in h</p><p>In this article I am will share some basic tools I recommend to use with
-every python project.</p><h1 id=pyenv>Pyenv</h1><p>The first tool in my daily toolbox is pyenv.
-Pyenv allows to install and manage multiple python environments at the same time.</p><h3 id=key-benefits>Key benefits:</h3><ul><li>you can install any python version available in pypi at your machine</li><li>time saving: you do not need to care about the installation process, pyevn will do everything for you</li><li>manages virtualenvironments- it is a single tool to add manage both the python version
-as well as the virtualenvironments.</li></ul><h3 id=how-to-install>How to install</h3><p>To install the main package run</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>brew install pyenv
-</code></pre></div><p>and the the virtualenv manager</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>brew install pyenv-virtualenv
-</code></pre></div><p>Add to ~/.bash_profile</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>
-eval <span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>pyenv init -<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
-eval <span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>pyenv virtualenv-init -<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
-</code></pre></div><h3 id=the-useful-commands>The useful commands</h3><p>List all available python versions</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv install --list
-</code></pre></div><p>Install specific python version (the python will be installed in ~/.pyenv/versions)</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv install 3.5.5
-</code></pre></div><p>Uninstall python version</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv uninstall 2.7.15
-</code></pre></div><p>Show commands</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv commands
-</code></pre></div><p>Show all installed versions</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv versions
-</code></pre></div><p>Show current active version</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv version
-</code></pre></div><p>Show the full path to the binary</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv which pip
-</code></pre></div><p>Set local python version (creates .python-version)</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv local 3.4.5
-</code></pre></div><p>VIrtualenv
-Create a virtualenv</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv virtualenv 3.5.5 project1
-</code></pre></div><p>Activate an environment</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv virtualenv 3.5.5 project1
+dependency management capabilities, required for mission critical python projects.
+As a consequence, there are several issues that might occur in your production environment.
+In this article I will discuss the most critical issues and give some thoughts how they
+can be avoided using <code>poetry</code>.</p><h3 id=version-divergence-issue>Version divergence issue</h3><p>Depending on team size the one pythong project is usually maintained by several developers.
+The scrum-master/team lead prepares tasks for the sprint/iteration (if you work in agile).
+and distributes the tasks among developers.
+For simplicity lets consider the following example project stucture:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>my-flask-app
+    |--static/
+       |--css/
+          |--main.css
+    |--templates/
+       |--index.html
+       |--products.html
+    |--models.py
+    |--views.py
+    |--requirements.txt
+</code></pre></div><p>where the requirements.txt would like:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>Flask~<span style=color:#f92672>=</span>2.*
+requests~<span style=color:#f92672>=</span>1.*
+</code></pre></div><p>And now imagine, that before starting, the developer decides to run</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>pip install -r requirements.txt
+</code></pre></div><p>to refresh the packages.
+The result of this comand will update the packages in his local environment.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>Flask<span style=color:#f92672>==</span>2.0.1 -&gt; Flask<span style=color:#f92672>==</span>2.2.3
+requests<span style=color:#f92672>==</span>1.8.1 -&gt; requests<span style=color:#f92672>==</span>1.9.2
+</code></pre></div><p>Now, after developing the changes, he pushes his changes to CI server, the server
+builds the packages, runs the auto tests, stores the artifacts and notifies the QA team that
+the task is ready for testing.
+The QA engineer pulls the code, starts the manual regression tests and realises that
+some of the features are not working on <em>his machine</em>. He reports the problem and moves
+the ticket back to <em>development</em>.
+The developer tries to reproduce problem, but could not and reports back to QA engineer,
+with something like</p><pre><code>&quot;I followed all your instructions, but could not reproduce the problem, 
+could you please come over or provide more details?&quot;
+</code></pre><p>or even worse</p><pre><code>&quot;everything works on my machine, please check again&quot;
+</code></pre><p>Hopefully, after a few iterations of such a ping-pong in <em>Jira</em> they realise that
+they need to check the packages they installed in their <code>.venv</code>.
+Apparently, the QA engineer still has the old packages:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>Flask<span style=color:#f92672>==</span>2.0.1
+requests<span style=color:#f92672>==</span>1.8.1
+</code></pre></div><p>while the developer has</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>Flask<span style=color:#f92672>==</span>2.2.3
+requests<span style=color:#f92672>==</span>1.9.2
+</code></pre></div><p>and the newly developed feature is using the functionality of the new <code>requests</code> lib,
+thus breaks without the updates.
+The QA engineer updates the packages, approves the changes and moves the ticket to DevOps
+engineer for deployment.
+The production was not affected, however a bunch of hours were wasted on figuring out the
+root cause of the problem.</p><p>And, as usual, it could be worse. Particularly, in my own practise, I have seen clusters
+of production machines serving the customers, where each machine had slightly different
+sets of packages.
+This kind of setup works <em>&ldquo;fine&rdquo;</em>, until it breaks, with really long running
+consequences and some reputation lost.
+Therefore, it is <em>tremendously important</em> to keep your packages and their versions
+under control.</p><h3 id=control-your-package-with-poetry>Control your package with Poetry</h3><p>Poetry is a beautifull instrument that provides and extensive control over your python
+packages:</p><ul><li>controls the list of packages</li><li>separates the dev dependancies from production dependancies</li><li>resolves the packages dependencies</li><li>stores the hash of all installed packages and their versions</li></ul><p>Poetry leverages the <code>pyproject.toml</code> file where the list of dependencies can be defined.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#f92672>[</span>tool.poetry<span style=color:#f92672>]</span>
+name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;my-flask-app&#34;</span>
+version <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;0.3.0&#34;</span>
+description <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;My amazin flask app&#34;</span>
+authors <span style=color:#f92672>=</span> <span style=color:#f92672>[</span>
+    <span style=color:#e6db74>&#34;john.snow &lt;john.snow21212230@gmai.com&gt;&#34;</span>,
+    <span style=color:#e6db74>&#34;gourgen.mardirossian &lt;gougou.mardirossian45112@gmail.com&gt;&#34;</span>
+<span style=color:#f92672>]</span>
 
-cd project1
+<span style=color:#f92672>[</span>tool.poetry.dependencies<span style=color:#f92672>]</span>
+Flask ~<span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;2.2.*&#34;</span>
+requests ~<span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;1.9.*&#34;</span>
 
-<span style=color:#75715e># will activate the virtualenv (if you cd out of the project dir virtualenv will be different)</span>
-pyenv local project1
-</code></pre></div><p>Activate the environment</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv activate venv
-</code></pre></div><p>Deactivate the environment</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv deactivate venv
-</code></pre></div><p>List the virtual environments</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv virtualenvs
-</code></pre></div><p>To see which pip is used</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>pyenv which pip
+<span style=color:#f92672>[</span>tool.poetry.dev-dependencies<span style=color:#f92672>]</span>
+black <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;^21.6b0&#34;</span>
+flake8 <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;^3.9.2&#34;</span>
+pylint <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;^2.8.3&#34;</span>
+pytest-mock <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;^3.6.1&#34;</span>
+Pympler <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;^0.9&#34;</span>
+
+<span style=color:#f92672>[</span>build-system<span style=color:#f92672>]</span>
+requires <span style=color:#f92672>=</span> <span style=color:#f92672>[</span><span style=color:#e6db74>&#34;poetry-core&gt;=1.0.0&#34;</span><span style=color:#f92672>]</span>
+build-backend <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;poetry.core.masonry.api&#34;</span>
 </code></pre></div>Resovle python installemnts hassle with Pyenv<p>In our daily work we usually deal with multiple python projects that we maintain.
 It&rsquo;s usually the case that those projects have slightly different python versions.
 Some of the projects get the frequent updates, some of them might sit somewhere in
