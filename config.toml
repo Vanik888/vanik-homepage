@@ -1,4 +1,4 @@
-baseURL = "www.karslian.com"
+baseURL = "https://www.karslian.com"
 title = "Vanik Karslian"
 paginate = 10
 DefaultContentLanguage = "en"
