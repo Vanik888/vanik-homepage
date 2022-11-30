@@ -2,7 +2,7 @@
 date = 2022-10-07
 isPopular = false
 tags = ["python", "DevOps", "work environment"]
-thumbnailPath = "self/img/articles/2020-08-02-python-project-setup/thumb1.jpeg" 
+thumbnailPath = "/self/img/articles/2020-08-02-python-project-setup/thumb1.jpeg" 
 title = "Tooling you should use for your python projects"
 +++
 In this article I am will share some basic tools I recommend to use with 
